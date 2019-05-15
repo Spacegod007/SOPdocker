@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat 'docker run -p 4000:80 friendlyhello'
+                sh 'python --version'
             }
         }
     }
