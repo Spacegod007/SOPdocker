@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                bat 'app.py'
+                bat 'echo hello world'
             }
         }
     }
