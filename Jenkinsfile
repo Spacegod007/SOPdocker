@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'python:2.7-slim' } }
+    agent { dockerfile true }
     stages {
         stage('build') {
             steps {
