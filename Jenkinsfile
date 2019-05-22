@@ -1,4 +1,3 @@
-error here test line
 pipeline {
     agent { dockerfile true }
     stages {
