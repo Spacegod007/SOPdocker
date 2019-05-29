@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
           steps {
-              def scannerHome = tool 'SonarQube Scanner 7.7';
-              withSonarQubeEnv('SonarQube') {
+            scannerHome = tool 'SonarQube Scanner 7.7';
+            withSonarQubeEnv('SonarQube') {
               sh "${scannerHome}/bin/sonar-scanner"
             }
           }
