@@ -1,16 +1,23 @@
 pipeline {
     agent { dockerfile true }
     stages {
-        stage('Build') {
+        stage('build && SonarQube analysis') {
             steps {
-                echo 'Building'
+                withSonarQubeEnv('My SonarQube Server') {
+                    // Optionally use a Maven environment you've configured already
+                    withMaven(maven:'Maven 3.5') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
+                }
             }
         }
-        stage('Test') {
+        stage("Quality Gate") {
             steps {
-                def scannerHome = tool 'SonarQube Scanner 2.8';
-                withSonarQubeEnv('My SonarQube Server') {
-                  sh "${scannerHome}/bin/sonar-scanner"
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    // Requires SonarQube Scanner for Jenkins 2.7+
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
