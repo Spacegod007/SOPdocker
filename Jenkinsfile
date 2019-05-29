@@ -3,11 +3,11 @@ pipeline {
     stages {
         stage('SonarQube analysis') {
           environment {
-          scannerHome = tool 'SonarQube Scanner 7.7';
-            steps {
-              withSonarQubeEnv('SonarQube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-              }
+            scannerHome = tool 'SonarQube Scanner 3.3.0.1492';
+          }
+          steps {
+            withSonarQubeEnv('SonarQube') {
+              sh "${scannerHome}/bin/sonar-scanner"
             }
           }
         }
