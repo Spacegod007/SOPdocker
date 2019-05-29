@@ -2,10 +2,12 @@ pipeline {
     agent { dockerfile true }
     stages {
         stage('SonarQube analysis') {
-          steps {
-            scannerHome = tool 'SonarQube Scanner 7.7';
-            withSonarQubeEnv('SonarQube') {
-              sh "${scannerHome}/bin/sonar-scanner"
+          environment {
+          scannerHome = tool 'SonarQube Scanner 7.7';
+            steps {
+              withSonarQubeEnv('SonarQube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+              }
             }
           }
         }
